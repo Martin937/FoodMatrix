@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+	<link rel="stylesheet" href="../../styles/global.css">
+	<link rel="stylesheet" href="./dashboard.css">
+	<title>Главная</title>
+</head>
+
+<body>
+	<h1>Добро пожаловать в систему управления питанием</h1>
+
+	<nav class="navigation">
+		<button class="nav-btn" data-page="dashboard">Главная</button>
+		<button class="nav-btn" data-page="nutritionTable">Продукты</button>
+		<button class="nav-btn" data-page="cookbook">Рецепты</button>
+		<button class="nav-btn" data-page="nutritionSchedule">Расписание</button>
+	</nav>
+
+	<div class="search-section">
+		<input type="text" id="clientSearch" placeholder="Поиск клиентов...">
+		<button id="sortBtn">Сортировать по имени</button>
+	</div>
+
+	<div class="client-list">
+		<!-- Динамически будет заполняться через JS -->
+	</div>
+
+	<script src="./dashboard.js"></script>
+</body>
+
+</html>

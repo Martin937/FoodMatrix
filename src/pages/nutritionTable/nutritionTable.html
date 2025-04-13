@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+	<link rel="stylesheet" href="../../styles/global.css">
+	<link rel="stylesheet" href="./nutritionTable.css">
+	<title>Таблица продуктов</title>
+</head>
+
+<body>
+	<h1>Таблица продуктов питания</h1>
+
+	<div class="product-controls">
+		<button id="addProductBtn">Добавить продукт</button>
+		<input type="text" id="productSearch" placeholder="Поиск продуктов...">
+		<select id="categoryFilter">
+			<option value="all">Все категории</option>
+			<option value="vegetables">Овощи</option>
+			<option value="fruits">Фрукты</option>
+		</select>
+	</div>
+
+	<table class="product-table">
+		<thead>
+			<tr>
+				<th>Название</th>
+				<th>Категория</th>
+				<th>Калории</th>
+				<th>Белки</th>
+				<th>Жиры</th>
+				<th>Углеводы</th>
+			</tr>
+		</thead>
+		<tbody id="productTableBody">
+			<!-- Заполнится через JS -->
+		</tbody>
+	</table>
+
+	<script src="./nutritionTable.js"></script>
+</body>
+
+</html>

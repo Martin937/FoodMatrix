@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+	<link rel="stylesheet" href="../../styles/global.css">
+	<link rel="stylesheet" href="./cookbook.css">
+	<title>Книга рецептов</title>
+</head>
+
+<body>
+	<h1>Книга рецептов</h1>
+
+	<div class="recipe-controls">
+		<button id="addRecipeBtn">Добавить рецепт</button>
+		<input type="text" id="recipeSearch" placeholder="Поиск рецептов...">
+		<select id="recipeCategoryFilter">
+			<option value="all">Все категории</option>
+			<option value="breakfast">Завтраки</option>
+			<option value="dinner">Обеды</option>
+		</select>
+	</div>
+
+	<div class="recipe-list" id="recipeList">
+		<!-- Заполнится через JS -->
+	</div>
+
+	<script src="./cookbook.js"></script>
+</body>
+
+</html>

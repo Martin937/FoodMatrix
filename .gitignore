@@ -1,0 +1,24 @@
+# Основные
+node_modules/
+.DS_Store
+dist/
+out/
+*.log
+
+# Базы данных
+*.db
+*.db-journal
+*.sqlite
+*.bak
+
+# IDE
+.vscode/
+.idea/
+
+# Системные
+Thumbs.db
+ehthumbs.db
+
+# Electron
+app/release/
+app/dist/
