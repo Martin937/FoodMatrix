@@ -1,7 +1,7 @@
 {
-  "name": "electron_sqlite_multi-window-d",
+  "name": "foodmatrix",
   "version": "1.0.0",
-  "description": "`electron_sqlite_multi-window-d` — десктопное приложение на Electron.js и SQLite для Windows.",
+  "description": "`foodmatrix` — десктопное приложение на Electron.js и SQLite для нутрициолога.",
   "main": "src/main/main.js",
   "directories": {
     "doc": "docs",

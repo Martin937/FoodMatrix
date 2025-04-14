@@ -4,7 +4,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self';
+					 script-src 'self';
+					 style-src 'self' 'unsafe-inline';
+					 img-src 'self' data:;">
 	<link rel="stylesheet" href="../../styles/global.css">
 	<link rel="stylesheet" href="./nutritionTable.css">
 	<title>Таблица продуктов</title>
@@ -12,32 +15,114 @@
 
 <body>
 	<h1>Таблица продуктов питания</h1>
-
+	<!-- Блок управления  -->
 	<div class="product-controls">
-		<button id="addProductBtn">Добавить продукт</button>
-		<input type="text" id="productSearch" placeholder="Поиск продуктов...">
-		<select id="categoryFilter">
-			<option value="all">Все категории</option>
-			<option value="vegetables">Овощи</option>
-			<option value="fruits">Фрукты</option>
-		</select>
+		<button id="add-product" class="btn btn-primary">➕ Добавить</button>
+		<button id="import-data" class="btn btn-secondary">📥 Импорт</button>
+		<button id="export-data" class="btn btn-secondary">📤 Экспорт</button>
+		<input type="text" id="product-search" class="search-input" placeholder="Поиск...">
 	</div>
 
 	<table class="product-table">
 		<thead>
 			<tr>
-				<th>Название</th>
-				<th>Категория</th>
-				<th>Калории</th>
-				<th>Белки</th>
-				<th>Жиры</th>
-				<th>Углеводы</th>
+			<tr>
+				<th data-sort="name">Название <span class="sort-icon">↓</span></th>
+				<th data-sort="category">Категория <span class="sort-icon"></span></th>
+				<th data-sort="calories">Калории <span class="sort-icon"></span></th>
+				<th data-sort="proteins">Белки <span class="sort-icon"></span></th>
+				<th data-sort="fats">Жиры <span class="sort-icon"></span></th>
+				<th data-sort="carbs">Углеводы <span class="sort-icon"></span></th>
+				<th data-sort="vitamins">Витамины <span class="sort-icon"></span></th>
+				<th data-sort="minerals">Минералы <span class="sort-icon"></span></th>
+				<th>Действия</th>
+			</tr>
 			</tr>
 		</thead>
-		<tbody id="productTableBody">
-			<!-- Заполнится через JS -->
-		</tbody>
+		<tbody id="productTableBody"></tbody>
 	</table>
+
+	<!-- Модальное окно -->
+	<div id="product-modal" class="modal hidden">
+		<div class="modal-content">
+			<span class="close-modal">&times;</span>
+			<h2 id="modal-title">Добавить продукт</h2>
+			<form id="product-form">
+				<!-- Группа полей: Основная информация -->
+				<div class="form-group">
+					<label for="modal-name">Название продукта*</label>
+					<input type="text" id="modal-name" minlength="2" maxlength="100" pattern="[-A-Za-zА-Яа-яЁё0-9()., ]+"
+						required>
+					<span class="error-message">Допустимы: буквы, цифры, пробелы и ().- (2-100 символов)</span>
+				</div>
+
+				<div class="form-group">
+					<label for="modal-category">Категория*</label>
+					<select id="modal-category" required>
+						<option value="" disabled selected>Выберите категорию</option>
+						<option value="Овощи">Овощи</option>
+						<option value="Фрукты">Фрукты</option>
+						<option value="Мясо">Мясо</option>
+						<option value="Рыба">Рыба</option>
+						<option value="Молочные">Молочные</option>
+						<option value="Крупы">Крупы</option>
+					</select>
+				</div>
+
+				<!-- Группа полей: Пищевая ценность -->
+				<div class="form-row">
+					<div class="form-group">
+						<label for="modal-calories">Калории (ккал)*</label>
+						<input type="number" id="modal-calories" min="0" max="1000" step="0.1" required>
+						<span class="error-message">Допустимо: 0-1000 ккал</span>
+					</div>
+
+					<div class="form-group">
+						<label for="modal-proteins">Белки (г)*</label>
+						<input type="number" id="modal-proteins" min="0" max="100" step="0.1" required>
+						<span class="error-message">Допустимо: 0-100 г</span>
+					</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for="modal-fats">Жиры (г)*</label>
+						<input type="number" id="modal-fats" min="0" max="100" step="0.1" required>
+						<span class="error-message">Допустимо: 0-100 г</span>
+					</div>
+
+					<div class="form-group">
+						<label for="modal-carbs">Углеводы (г)*</label>
+						<input type="number" id="modal-carbs" min="0" max="150" step="0.1" required>
+						<span class="error-message">Допустимо: 0-150 г</span>
+					</div>
+				</div>
+
+				<!-- Группа полей: Дополнительные параметры -->
+				<div class="form-row">
+					<div class="form-group">
+						<label for="modal-vitamins">Витамины</label>
+						<input type="text" id="modal-vitamins" pattern="[-A-Za-zА-Яа-яЁё, ]+">
+						<span class="error-message">Только буквы, цифры и запятые</span>
+					</div>
+
+					<div class="form-group">
+						<label for="modal-minerals">Минералы</label>
+						<input type="text" id="modal-minerals" pattern="[-A-Za-zА-Яа-яЁё, ]+">
+						<span class="error-message">Только буквы, цифры и запятые</span>
+					</div>
+				</div>
+
+				<!-- Кнопки формы -->
+				<div class="form-actions">
+					<button type="button" id="cancel-btn" class="btn btn-secondary">Отмена</button>
+					<button type="submit" class="btn btn-primary">Сохранить</button>
+				</div>
+			</form>
+
+
+		</div>
+	</div>
 
 	<script src="./nutritionTable.js"></script>
 </body>
